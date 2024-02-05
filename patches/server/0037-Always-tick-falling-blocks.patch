@@ -5,10 +5,10 @@ Subject: [PATCH] Always tick falling blocks
 
 
 diff --git a/src/main/java/org/spigotmc/ActivationRange.java b/src/main/java/org/spigotmc/ActivationRange.java
-index 47e7fd7baf3ec6ed3ec9b5e6d73ed8611c2b1ce1..e4efed4e50188b71ff30238b3517a924b45b24b8 100644
+index a5da6c1cae0afbde684be250e2fc3c0c32a1265b..e5ff35531a933268f2b8b6c15c234de4482931d5 100644
 --- a/src/main/java/org/spigotmc/ActivationRange.java
 +++ b/src/main/java/org/spigotmc/ActivationRange.java
-@@ -89,6 +89,7 @@ public class ActivationRange
+@@ -92,6 +92,7 @@ public class ActivationRange
                  || entity instanceof AbstractHurtingProjectile
                  || entity instanceof LightningBolt
                  || entity instanceof PrimedTnt

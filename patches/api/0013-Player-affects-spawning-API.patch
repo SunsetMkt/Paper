@@ -5,10 +5,10 @@ Subject: [PATCH] Player affects spawning API
 
 
 diff --git a/src/main/java/org/bukkit/entity/Player.java b/src/main/java/org/bukkit/entity/Player.java
-index 1a55f1b296d606179ee7ecbe4b482acc2d877fc1..8f6c133ff7ce78de8f0ac17eb45aced699548431 100644
+index cec658bc1489b7b6ee76cc7d62d0d474c8972b2b..f08dc4b58e7b3298bf12dc510c95ee7e644a19e4 100644
 --- a/src/main/java/org/bukkit/entity/Player.java
 +++ b/src/main/java/org/bukkit/entity/Player.java
-@@ -2362,6 +2362,22 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -2418,6 +2418,22 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
      @Deprecated // Paper
      public String getLocale();
  

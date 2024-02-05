@@ -1,0 +1,24 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Spottedleaf <Spottedleaf@users.noreply.github.com>
+Date: Sat, 7 May 2022 14:58:53 -0700
+Subject: [PATCH] Do not accept invalid client settings
+
+
+diff --git a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
+index f4230861d3d927726e7317ff1ebab4eac2dcff72..6482886597e67a7e77b9087e283129da33a8bd8e 100644
+--- a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
++++ b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
+@@ -3149,6 +3149,13 @@ public class ServerGamePacketListenerImpl extends ServerCommonPacketListenerImpl
+     @Override
+     public void handleClientInformation(ServerboundClientInformationPacket packet) {
+         PacketUtils.ensureRunningOnSameThread(packet, this, this.player.serverLevel());
++        // Paper start - do not accept invalid information
++        if (packet.information().viewDistance() < 0) {
++            LOGGER.warn("Disconnecting " + this.player.getScoreboardName() + " for invalid view distance: " + packet.information().viewDistance());
++            this.disconnect("Invalid client settings", org.bukkit.event.player.PlayerKickEvent.Cause.ILLEGAL_ACTION);
++            return;
++        }
++        // Paper end - do not accept invalid information
+         this.player.updateOptions(packet.information());
+         this.connection.channel.attr(io.papermc.paper.adventure.PaperAdventure.LOCALE_ATTRIBUTE).set(net.kyori.adventure.translation.Translator.parseLocale(packet.information().language())); // Paper
+     }

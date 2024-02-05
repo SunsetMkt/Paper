@@ -254,7 +254,7 @@ index f9c9ae463aacd593e3aa9caf037ea1e23d56c780..f8ae143acbf586d5279b44f7311ca97f
  
      /**
 diff --git a/src/main/java/org/bukkit/Location.java b/src/main/java/org/bukkit/Location.java
-index 0b202d378d50946f43434e70d9d511cac06749b0..cf42f6e57e96aa9cb4465e34a6e3f8709de4ca09 100644
+index 02b4ffa6b918269bd64f7c518fcceef1f6990737..f0878c7539696cc0676e6010e88914d3850acf20 100644
 --- a/src/main/java/org/bukkit/Location.java
 +++ b/src/main/java/org/bukkit/Location.java
 @@ -46,7 +46,7 @@ public class Location implements Cloneable, ConfigurationSerializable, io.paperm
@@ -600,7 +600,7 @@ index e455eb21abf121dc6ff10ff8a13dd06f67096a8f..bbc01e7c192ae6689c301670047ff114
          return origin;
      }
 diff --git a/src/main/java/org/bukkit/World.java b/src/main/java/org/bukkit/World.java
-index 561cfe701d76fa0c85cea4a76affa7e90de82da0..8a200ffe1851b24110c92bb3a9f7ffc39b8c63f2 100644
+index 985dcea9ebed2fc5a3bfb8581cbd0ee4bf89ee8f..08eb8744104f1bbbd4f96972e0fb68f1aa4049f5 100644
 --- a/src/main/java/org/bukkit/World.java
 +++ b/src/main/java/org/bukkit/World.java
 @@ -416,9 +416,8 @@ public interface World extends RegionAccessor, WorldInfo, PluginMessageRecipient
@@ -614,42 +614,15 @@ index 561cfe701d76fa0c85cea4a76affa7e90de82da0..8a200ffe1851b24110c92bb3a9f7ffc3
      public boolean refreshChunk(int x, int z);
  
      /**
-@@ -3762,6 +3761,10 @@ public interface World extends RegionAccessor, WorldInfo, PluginMessageRecipient
-     // Paper end - view distance api
+@@ -3704,6 +3703,7 @@ public interface World extends RegionAccessor, WorldInfo, PluginMessageRecipient
+     StructureSearchResult locateNearestStructure(@NotNull Location origin, @NotNull Structure structure, int radius, boolean findUnexplored);
  
      // Spigot start
-+    /**
-+     * @deprecated Unsupported api
-+     */
-+    @Deprecated // Paper
++    @Deprecated(forRemoval = true) // Paper
      public class Spigot {
  
          /**
-@@ -3770,8 +3773,12 @@ public interface World extends RegionAccessor, WorldInfo, PluginMessageRecipient
-          * @param loc The location to strike lightning
-          * @param isSilent Whether this strike makes no sound
-          * @return The lightning entity.
-+         * @deprecated The lightning strike sound has been moved into the client and
-+         * this doesn't prevent the sound being played. Use the regular (non spigot) methods instead
-+         * for a consistent behavior.
-          */
-         @NotNull
-+        @Deprecated // Paper
-         public LightningStrike strikeLightning(@NotNull Location loc, boolean isSilent) {
-             throw new UnsupportedOperationException("Not supported yet.");
-         }
-@@ -3782,14 +3789,22 @@ public interface World extends RegionAccessor, WorldInfo, PluginMessageRecipient
-          * @param loc The location to strike lightning
-          * @param isSilent Whether this strike makes no sound
-          * @return The lightning entity.
-+         * @deprecated The lightning strike sound has been moved into the client and
-+         * this doesn't prevent the sound being played. Use the regular (non spigot) methods instead
-+         * for a consistent behavior.
-          */
-         @NotNull
-+        @Deprecated // Paper
-         public LightningStrike strikeLightningEffect(@NotNull Location loc, boolean isSilent) {
-             throw new UnsupportedOperationException("Not supported yet.");
+@@ -3737,7 +3737,11 @@ public interface World extends RegionAccessor, WorldInfo, PluginMessageRecipient
          }
      }
  
@@ -661,7 +634,7 @@ index 561cfe701d76fa0c85cea4a76affa7e90de82da0..8a200ffe1851b24110c92bb3a9f7ffc3
      Spigot spigot();
      // Spigot end
  
-@@ -3920,9 +3935,9 @@ public interface World extends RegionAccessor, WorldInfo, PluginMessageRecipient
+@@ -3928,9 +3932,9 @@ public interface World extends RegionAccessor, WorldInfo, PluginMessageRecipient
           * Gets the dimension ID of this environment
           *
           * @return dimension ID
@@ -673,7 +646,7 @@ index 561cfe701d76fa0c85cea4a76affa7e90de82da0..8a200ffe1851b24110c92bb3a9f7ffc3
          public int getId() {
              return id;
          }
-@@ -3932,9 +3947,9 @@ public interface World extends RegionAccessor, WorldInfo, PluginMessageRecipient
+@@ -3940,9 +3944,9 @@ public interface World extends RegionAccessor, WorldInfo, PluginMessageRecipient
           *
           * @param id The ID of the environment
           * @return The environment
@@ -686,10 +659,10 @@ index 561cfe701d76fa0c85cea4a76affa7e90de82da0..8a200ffe1851b24110c92bb3a9f7ffc3
          public static Environment getEnvironment(int id) {
              return lookup.get(id);
 diff --git a/src/main/java/org/bukkit/block/Block.java b/src/main/java/org/bukkit/block/Block.java
-index 78f6cc1a8a8de05aec6f551f8a5f425944f0ffa3..653a83b7ceb5cec1d92aed5250ae50e714fe5f9f 100644
+index f3a18e337a579b602b1289bccdf454334a663fcf..c22f333174bd6b8860ee06a71f713e4be8fa64ec 100644
 --- a/src/main/java/org/bukkit/block/Block.java
 +++ b/src/main/java/org/bukkit/block/Block.java
-@@ -517,7 +517,7 @@ public interface Block extends Metadatable, Translatable {
+@@ -526,7 +526,7 @@ public interface Block extends Metadatable, Translatable {
       * @return a list of dropped items for this type of block
       */
      @NotNull
@@ -805,10 +778,10 @@ index e3f440c9d9ce3b5710ed1b7f71522899fb98459f..a4578c520aa1078a741aac4b12fe89bf
      @Nullable
      public static EntityType fromName(@Nullable String name) {
 diff --git a/src/main/java/org/bukkit/entity/LightningStrike.java b/src/main/java/org/bukkit/entity/LightningStrike.java
-index c49628f2638da68e1ec126e53c8b7c74b0d81b22..8dc433baba7060df5cfe6fc10210a5a27287987d 100644
+index b27447d7a2833f84cf05946c851f5b6740a578e3..5afeb2f6c82e8f752229462c2d7846f6ae7a4b44 100644
 --- a/src/main/java/org/bukkit/entity/LightningStrike.java
 +++ b/src/main/java/org/bukkit/entity/LightningStrike.java
-@@ -84,20 +84,31 @@ public interface LightningStrike extends Entity {
+@@ -84,6 +84,10 @@ public interface LightningStrike extends Entity {
      public void setCausingPlayer(@Nullable Player player);
  
      // Spigot start
@@ -818,17 +791,8 @@ index c49628f2638da68e1ec126e53c8b7c74b0d81b22..8dc433baba7060df5cfe6fc10210a5a2
 +    @Deprecated // Paper
      public class Spigot extends Entity.Spigot {
  
--        /*
-+        /**
-          * Returns whether the strike is silent.
-          *
-          * @return whether the strike is silent.
-+         * @deprecated The lightning strike sound has been moved into the client and
-+         * this can't predict if the sound will be played or not accurately.
-          */
-+        @Deprecated // Paper
-         public boolean isSilent() {
-             throw new UnsupportedOperationException("Not supported yet.");
+         /**
+@@ -98,8 +102,12 @@ public interface LightningStrike extends Entity {
          }
      }
  
@@ -856,10 +820,10 @@ index f124b35ec76e6cb6a1a0dc464005087043c3efd0..f50aaddf8582be55fd4860ad374d8f22
 +@Deprecated(forRemoval = true) // Paper
  public interface LingeringPotion extends ThrownPotion { }
 diff --git a/src/main/java/org/bukkit/entity/LivingEntity.java b/src/main/java/org/bukkit/entity/LivingEntity.java
-index 79fdb183887cb8153254f6ac84a981a7ffcb561c..373b3ad6b3f94655289155914aec8294cd4f2fb2 100644
+index 47c4096699bc0334eacf10b6403c4a4329797f0e..f52ac8b1063806e63f81a2107c4272f05314472b 100644
 --- a/src/main/java/org/bukkit/entity/LivingEntity.java
 +++ b/src/main/java/org/bukkit/entity/LivingEntity.java
-@@ -664,7 +664,9 @@ public interface LivingEntity extends Attributable, Damageable, ProjectileSource
+@@ -666,7 +666,9 @@ public interface LivingEntity extends Attributable, Damageable, ProjectileSource
       * This may have unexpected results if the entity is not in water.
       *
       * @param swimming True if the entity is swimming.
@@ -895,10 +859,10 @@ index 95c79c5fa0c4e30201f887da6467ce5f81c8a255..7f9c4d4b430a3f0276461346ff2621ba
  
      /**
 diff --git a/src/main/java/org/bukkit/entity/Player.java b/src/main/java/org/bukkit/entity/Player.java
-index bfed5759b4f4613e5143da41f5e82a37ab4f10a8..5e7fec90713e580801c1e98bccf4adc5e16b9c71 100644
+index 76f70e0db9409aa731d79e2c7b16d39b4c2dfc4c..ae324d684fa1fe256ae2b2c50bd0566ad0a27110 100644
 --- a/src/main/java/org/bukkit/entity/Player.java
 +++ b/src/main/java/org/bukkit/entity/Player.java
-@@ -1498,11 +1498,8 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -1539,11 +1539,8 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
  
      /**
       * Forces an update of the player's entire inventory.
@@ -1413,7 +1377,7 @@ index 002acfbdce1db10f7ba1b6a013e678f504ac6e69..8d14426eb1ebea27058d5f22ea652f22
          return getPlayer().getItemOnCursor();
      }
 diff --git a/src/main/java/org/bukkit/inventory/ItemFactory.java b/src/main/java/org/bukkit/inventory/ItemFactory.java
-index 246b58f52e914c45f357240b155c826b1d40b202..53457348eaf2e1ef2e844eae87ac94f701525c92 100644
+index a3d40ca984202a5fec0cfcc97266f32408c37638..6aeae6b78106b8fd434614591adb5ead41dec8e1 100644
 --- a/src/main/java/org/bukkit/inventory/ItemFactory.java
 +++ b/src/main/java/org/bukkit/inventory/ItemFactory.java
 @@ -30,7 +30,7 @@ public interface ItemFactory {
@@ -1426,7 +1390,7 @@ index 246b58f52e914c45f357240b155c826b1d40b202..53457348eaf2e1ef2e844eae87ac94f7
  
      /**
 diff --git a/src/main/java/org/bukkit/inventory/ItemStack.java b/src/main/java/org/bukkit/inventory/ItemStack.java
-index 83a0631a80db156ace1d977df71d5fc653b70bb6..60a25898fb17c467ffae05039fcd4d3b154a99ff 100644
+index dbd0d0610f33105ee83ab589c84e73004f684fb5..fd3d4dd231d756d51db0155a4c3ad970c4f456ed 100644
 --- a/src/main/java/org/bukkit/inventory/ItemStack.java
 +++ b/src/main/java/org/bukkit/inventory/ItemStack.java
 @@ -8,6 +8,7 @@ import java.util.Map;
@@ -1466,7 +1430,7 @@ index 83a0631a80db156ace1d977df71d5fc653b70bb6..60a25898fb17c467ffae05039fcd4d3b
      public void setData(@Nullable MaterialData data) {
          if (data == null) {
              this.data = data;
-@@ -546,7 +552,7 @@ public class ItemStack implements Cloneable, ConfigurationSerializable, Translat
+@@ -557,7 +563,7 @@ public class ItemStack implements Cloneable, ConfigurationSerializable, Translat
       *
       * @return a copy of the current ItemStack's ItemData
       */
@@ -1622,7 +1586,7 @@ index 5ccae862dbac393805a47fe26c18a2f33f1e140d..72281899817c5c140cdca2afff75fbce
  
      @Override
 diff --git a/src/main/java/org/bukkit/inventory/meta/ItemMeta.java b/src/main/java/org/bukkit/inventory/meta/ItemMeta.java
-index 46ac120ed51274a2084719387e35e517981bbf4b..420a91a834016d3af95efd79ca92ae45c4f081c4 100644
+index f800e776329c1b42f834cb30ebf2d0ace195d1a2..f23c0c942f200a68d2620f225ab90399a9057dfc 100644
 --- a/src/main/java/org/bukkit/inventory/meta/ItemMeta.java
 +++ b/src/main/java/org/bukkit/inventory/meta/ItemMeta.java
 @@ -75,8 +75,10 @@ public interface ItemMeta extends Cloneable, ConfigurationSerializable, Persiste

@@ -5,24 +5,11 @@ Subject: [PATCH] Add World Util Methods
 
 Methods that can be used for other patches to help improve logic.
 
-diff --git a/src/main/java/net/minecraft/server/level/ServerLevel.java b/src/main/java/net/minecraft/server/level/ServerLevel.java
-index 91683741c38cb9b9224c40a7637580bb4d15b075..88249c9a31e6dc1bb0912daebed80ede4d791d9f 100644
---- a/src/main/java/net/minecraft/server/level/ServerLevel.java
-+++ b/src/main/java/net/minecraft/server/level/ServerLevel.java
-@@ -223,7 +223,7 @@ public class ServerLevel extends Level implements WorldGenLevel {
-     public final LevelStorageSource.LevelStorageAccess convertable;
-     public final UUID uuid;
- 
--    public LevelChunk getChunkIfLoaded(int x, int z) {
-+    @Override public LevelChunk getChunkIfLoaded(int x, int z) { // Paper - this was added in world too but keeping here for NMS ABI
-         return this.chunkSource.getChunk(x, z, false);
-     }
- 
 diff --git a/src/main/java/net/minecraft/world/level/Level.java b/src/main/java/net/minecraft/world/level/Level.java
-index 5c42b38ab337a3fd4e4b4ac8d0aa2db43540446c..ed38ad96b9344903097962a5bf94fb861651fcba 100644
+index eb2b4ba79488c3d43421c39852c36c4387372f38..c3138a2ff6446fb72d9eb1bd31f851d7df6b94f2 100644
 --- a/src/main/java/net/minecraft/world/level/Level.java
 +++ b/src/main/java/net/minecraft/world/level/Level.java
-@@ -345,6 +345,22 @@ public abstract class Level implements LevelAccessor, AutoCloseable {
+@@ -347,6 +347,22 @@ public abstract class Level implements LevelAccessor, AutoCloseable {
          return chunk == null ? null : chunk.getFluidState(blockposition);
      }
  

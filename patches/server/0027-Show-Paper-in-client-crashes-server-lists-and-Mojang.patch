@@ -6,20 +6,20 @@ Subject: [PATCH] Show 'Paper' in client crashes, server lists, and Mojang
 
 
 diff --git a/src/main/java/net/minecraft/server/MinecraftServer.java b/src/main/java/net/minecraft/server/MinecraftServer.java
-index b608788552d380328b729ce6164e0fc60cf3fefd..457b0f1f469436f6caa7473d91f906f1a61d6c74 100644
+index c99da8c4810385600470a0c3b4c03670edd0759b..107a04f6c5889e98c183a932ad158fb5b6591a10 100644
 --- a/src/main/java/net/minecraft/server/MinecraftServer.java
 +++ b/src/main/java/net/minecraft/server/MinecraftServer.java
-@@ -1559,7 +1559,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
+@@ -1615,7 +1615,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
  
      @DontObfuscate
      public String getServerModName() {
 -        return "Spigot"; // Spigot - Spigot > // CraftBukkit - cb > vanilla!
-+        return "Paper"; // Paper - Paper > // Spigot - Spigot > // CraftBukkit - cb > vanilla!
++        return "Paper"; // Paper
      }
  
      public SystemReport fillSystemReport(SystemReport details) {
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-index 668263f6b58e04461564687f75ae75504beb1996..1c8363ea23c76633b69e4b98b35ea4feb6c1d2ff 100644
+index 3b2f99617a519c2c2f60b88a4679064c01e5d958..9b85ec9e9a66a5bc0c98598531102f01e597f525 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 @@ -261,7 +261,7 @@ import org.yaml.snakeyaml.error.MarkedYAMLException;
@@ -32,7 +32,7 @@ index 668263f6b58e04461564687f75ae75504beb1996..1c8363ea23c76633b69e4b98b35ea4fe
      private final String bukkitVersion = Versioning.getBukkitVersion();
      private final Logger logger = Logger.getLogger("Minecraft");
 diff --git a/src/main/java/org/bukkit/craftbukkit/Main.java b/src/main/java/org/bukkit/craftbukkit/Main.java
-index 3436351140383f53404d37b8f974181724d13627..bf6ee9f7613e76daba9db4089d13a1f189d093b4 100644
+index c312c450055965d63db0ccdee8aa8e34e7051d0b..9f4c5a6f22719ae30d88ca02a1db4a3f39957943 100644
 --- a/src/main/java/org/bukkit/craftbukkit/Main.java
 +++ b/src/main/java/org/bukkit/craftbukkit/Main.java
 @@ -241,12 +241,25 @@ public class Main {
@@ -57,16 +57,16 @@ index 3436351140383f53404d37b8f974181724d13627..bf6ee9f7613e76daba9db4089d13a1f1
 +                } else {
 +                    System.out.println("Unable to read system info");
 +                }
-+                // Paper end
++                // Paper end - Log Java and OS versioning to help with debugging plugin issues
 +
                  System.out.println("Loading libraries, please wait...");
                  net.minecraft.server.Main.main(options);
              } catch (Throwable t) {
 diff --git a/src/main/java/org/spigotmc/WatchdogThread.java b/src/main/java/org/spigotmc/WatchdogThread.java
-index 7621bf889ef765ed57af221edf95b07346f4ae43..cacbde8ac27a70b5e3bcd76ad90bc667abee3817 100644
+index c4bf7053d83d207caca0e13e19f5c1afa7062de3..231b4e3552b17f7803815a433a5ece440c227cc6 100644
 --- a/src/main/java/org/spigotmc/WatchdogThread.java
 +++ b/src/main/java/org/spigotmc/WatchdogThread.java
-@@ -19,7 +19,7 @@ public final class WatchdogThread extends io.papermc.paper.util.TickThread // Pa
+@@ -19,7 +19,7 @@ public class WatchdogThread extends Thread
  
      private WatchdogThread(long timeoutTime, boolean restart)
      {
@@ -75,7 +75,7 @@ index 7621bf889ef765ed57af221edf95b07346f4ae43..cacbde8ac27a70b5e3bcd76ad90bc667
          this.timeoutTime = timeoutTime;
          this.restart = restart;
      }
-@@ -65,14 +65,14 @@ public final class WatchdogThread extends io.papermc.paper.util.TickThread // Pa
+@@ -65,14 +65,14 @@ public class WatchdogThread extends Thread
              {
                  Logger log = Bukkit.getServer().getLogger();
                  log.log( Level.SEVERE, "------------------------------" );
@@ -93,12 +93,12 @@ index 7621bf889ef765ed57af221edf95b07346f4ae43..cacbde8ac27a70b5e3bcd76ad90bc667
                  //
                  if ( net.minecraft.world.level.Level.lastPhysicsProblem != null )
                  {
-@@ -82,7 +82,7 @@ public final class WatchdogThread extends io.papermc.paper.util.TickThread // Pa
+@@ -82,7 +82,7 @@ public class WatchdogThread extends Thread
                  }
                  //
                  log.log( Level.SEVERE, "------------------------------" );
 -                log.log( Level.SEVERE, "Server thread dump (Look for plugins here before reporting to Spigot!):" );
 +                log.log( Level.SEVERE, "Server thread dump (Look for plugins here before reporting to Paper!):" ); // Paper
-                 io.papermc.paper.chunk.system.scheduling.ChunkTaskScheduler.dumpAllChunkLoadInfo(isLongTimeout); // Paper // Paper - rewrite chunk system
                  WatchdogThread.dumpThread( ManagementFactory.getThreadMXBean().getThreadInfo( MinecraftServer.getServer().serverThread.getId(), Integer.MAX_VALUE ), log );
                  log.log( Level.SEVERE, "------------------------------" );
+                 //

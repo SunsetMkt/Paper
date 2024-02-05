@@ -5,12 +5,12 @@ Subject: [PATCH] Player Tab List and Title APIs
 
 
 diff --git a/src/main/java/net/minecraft/network/FriendlyByteBuf.java b/src/main/java/net/minecraft/network/FriendlyByteBuf.java
-index d9be3fada2e603684275a2094954e29039fb07c7..95bd5958f55fc80d05ccb9cab4d37ff2ef6355e6 100644
+index 53f033d2d887909f5f905c00122d1b09809e5e3c..b9dd91927cb259789ad71b2241024c5fa2586d57 100644
 --- a/src/main/java/net/minecraft/network/FriendlyByteBuf.java
 +++ b/src/main/java/net/minecraft/network/FriendlyByteBuf.java
-@@ -540,6 +540,12 @@ public class FriendlyByteBuf extends ByteBuf {
+@@ -545,6 +545,12 @@ public class FriendlyByteBuf extends ByteBuf {
          return this.writeWithCodec(NbtOps.INSTANCE, ComponentSerialization.localizedCodec(this.adventure$locale), text);
-         // Paper end - adventure
+         // Paper end - adventure; support writing adventure components directly and server-side translations
      }
 +    // Paper start - deprecated Tab List & Title APIs
 +    @Deprecated
@@ -64,7 +64,7 @@ index 7bb08db97c324d13836303cc8a4623c71d6c8a2c..5e9045f7722481e1f83a3d36d7b3d86e
          // Paper end
          buf.writeComponent(this.text);
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
-index 4585c67495ffda7f149c4dbcf379839f40cf6bac..1cb9dbb01a320081188320048d36f61434efa109 100644
+index d37ff41c7266f6811988272e32e035469fe30f46..cfa95917b39b32917bf32b2e97211d232d9037fd 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
 @@ -1,5 +1,6 @@
@@ -74,7 +74,7 @@ index 4585c67495ffda7f149c4dbcf379839f40cf6bac..1cb9dbb01a320081188320048d36f614
  import com.google.common.base.Preconditions;
  import com.google.common.collect.ImmutableSet;
  import com.google.common.io.BaseEncoding;
-@@ -340,6 +341,100 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
+@@ -298,6 +299,100 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
          }
      }
  

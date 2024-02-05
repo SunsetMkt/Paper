@@ -5,10 +5,10 @@ Subject: [PATCH] Disable spigot tick limiters
 
 
 diff --git a/src/main/java/net/minecraft/world/level/Level.java b/src/main/java/net/minecraft/world/level/Level.java
-index cf081c6d270053b7d9a042b65495fe17f0ee4826..ac169632113c3d2177910723ce920cd9a4f7af66 100644
+index 7ead83d46e7bb3ee3586acf695b08f197f61f04a..6fbadd278138743f87fcf6b3c3d3c57af41d437c 100644
 --- a/src/main/java/net/minecraft/world/level/Level.java
 +++ b/src/main/java/net/minecraft/world/level/Level.java
-@@ -705,9 +705,7 @@ public abstract class Level implements LevelAccessor, AutoCloseable {
+@@ -707,9 +707,7 @@ public abstract class Level implements LevelAccessor, AutoCloseable {
          boolean flag = this.tickRateManager().runsNormally();
  
          int tilesThisCycle = 0;
@@ -18,4 +18,4 @@ index cf081c6d270053b7d9a042b65495fe17f0ee4826..ac169632113c3d2177910723ce920cd9
 +        for (tileTickPosition = 0; tileTickPosition < this.blockEntityTickers.size(); tileTickPosition++) { // Paper - Disable tick limiters
              this.tileTickPosition = (this.tileTickPosition < this.blockEntityTickers.size()) ? this.tileTickPosition : 0;
              TickingBlockEntity tickingblockentity = (TickingBlockEntity) this.blockEntityTickers.get(this.tileTickPosition);
-             // Spigot start
+             // Spigot end

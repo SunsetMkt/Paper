@@ -5,18 +5,18 @@ Subject: [PATCH] Configurable container update tick rate
 
 
 diff --git a/src/main/java/net/minecraft/server/level/ServerPlayer.java b/src/main/java/net/minecraft/server/level/ServerPlayer.java
-index 686b42a9b4475fe3d530a9b950c1cc8f04717a65..d986c09392182335112040d4b6feae6a1a740d84 100644
+index b0a548ed0abbe08df2cae771248a811fba3891da..7e777ab6998203e031fb8387b1521bff3d86f11a 100644
 --- a/src/main/java/net/minecraft/server/level/ServerPlayer.java
 +++ b/src/main/java/net/minecraft/server/level/ServerPlayer.java
 @@ -247,6 +247,7 @@ public class ServerPlayer extends Player {
      private RemoteChatSession chatSession;
      private int containerCounter;
      public boolean wonGame;
-+    private int containerUpdateDelay; // Paper
++    private int containerUpdateDelay; // Paper - Configurable container update tick rate
  
      // CraftBukkit start
      public String displayName;
-@@ -683,7 +684,12 @@ public class ServerPlayer extends Player {
+@@ -639,7 +640,12 @@ public class ServerPlayer extends Player {
              --this.invulnerableTime;
          }
  
@@ -26,7 +26,7 @@ index 686b42a9b4475fe3d530a9b950c1cc8f04717a65..d986c09392182335112040d4b6feae6a
 +            this.containerMenu.broadcastChanges();
 +            containerUpdateDelay = this.level().paperConfig().tickRates.containerUpdate;
 +        }
-+        // Paper end
++        // Paper end - Configurable container update tick rate
          if (!this.level().isClientSide && !this.containerMenu.stillValid(this)) {
              this.closeContainer();
              this.containerMenu = this.inventoryMenu;
